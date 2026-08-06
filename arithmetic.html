@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ментальная арифметика — Döwletli Nazar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --blue: #1E8FE1; --blue-dark: #1570b8; --blue-light: #e8f4fd; --text: #1a1a2e; --muted: #6b7280; }
+  body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text); overflow-x: hidden; }
+
+  nav {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 60px; border-bottom: 1px solid #f0f0f0;
+    position: sticky; top: 0; background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px); z-index: 100;
+  }
+  .back-btn {
+    display: flex; align-items: center; gap: 6px;
+    text-decoration: none; color: var(--blue); font-weight: 700; font-size: 14px;
+    padding: 8px 16px; border: 2px solid var(--blue); border-radius: 50px;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { background: var(--blue); color: white; }
+  .nav-logo { width: 38px; height: 38px; object-fit: contain; }
+  .nav-name { font-weight: 800; color: var(--blue); font-size: 16px; }
+
+  /* HERO with animated abacus */
+  .hero {
+    text-align: center;
+    padding: 60px 40px 40px;
+  }
+
+  /* Simple SVG abacus animation */
+  .abacus-anim {
+    width: 120px; height: 80px;
+    margin: 0 auto 20px;
+    display: block;
+  }
+  .bead { animation: slideBead 1.2s ease-in-out infinite alternate; }
+  .bead:nth-child(2) { animation-delay: 0.15s; }
+  .bead:nth-child(3) { animation-delay: 0.3s; }
+  .bead:nth-child(4) { animation-delay: 0.45s; }
+  .bead:nth-child(5) { animation-delay: 0.6s; }
+  @keyframes slideBead {
+    from { transform: translateX(0); }
+    to { transform: translateX(30px); }
+  }
+
+  .hero-icon {
+    font-size: 72px;
+    display: inline-block;
+    animation: shake 0.8s cubic-bezier(0.36,0.07,0.19,0.97) 0.2s both;
+    margin-bottom: 16px;
+  }
+  @keyframes shake {
+    0% { transform: rotate(0); }
+    15% { transform: rotate(-15deg) scale(1.1); }
+    30% { transform: rotate(10deg); }
+    45% { transform: rotate(-8deg); }
+    60% { transform: rotate(5deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0) scale(1); }
+  }
+
+  .hero h1 {
+    font-size: clamp(24px, 4vw, 44px);
+    font-weight: 800; color: var(--blue);
+    animation: zoomIn 0.5s ease 0.3s both;
+  }
+  .hero p {
+    font-size: 16px; color: var(--muted); margin-top: 12px;
+    animation: zoomIn 0.5s ease 0.45s both;
+  }
+  @keyframes zoomIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* TIMELINE LEVELS */
+  .levels {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 30px 40px 80px;
+    position: relative;
+  }
+  /* vertical line */
+  .levels::before {
+    content: '';
+    position: absolute;
+    left: 76px;
+    top: 30px; bottom: 80px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), #b3d9f5);
+  }
+
+  .level-row {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateX(30px);
+    animation: slideInRight 0.5s ease forwards;
+  }
+  .level-row:nth-child(1) { animation-delay: 0.05s; }
+  .level-row:nth-child(2) { animation-delay: 0.15s; }
+  .level-row:nth-child(3) { animation-delay: 0.25s; }
+  .level-row:nth-child(4) { animation-delay: 0.35s; }
+  .level-row:nth-child(5) { animation-delay: 0.45s; }
+  .level-row:nth-child(6) { animation-delay: 0.55s; }
+  .level-row:nth-child(7) { animation-delay: 0.65s; }
+
+  @keyframes slideInRight {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .level-dot {
+    min-width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; color: white;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 4px var(--blue-light);
+    transition: transform 0.2s;
+  }
+  .level-row:hover .level-dot { transform: scale(1.15); }
+
+  .level-body {
+    flex: 1;
+    padding: 20px 24px;
+    border: 2px solid #e8f0f8;
+    border-radius: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  .level-row:hover .level-body {
+    border-color: var(--blue);
+    box-shadow: 0 8px 30px rgba(30,143,225,0.1);
+    transform: translateX(4px);
+  }
+
+  .level-name { font-size: 17px; font-weight: 800; }
+  .level-age {
+    font-size: 11px; font-weight: 700; color: var(--blue);
+    background: var(--blue-light); display: inline-block;
+    padding: 3px 9px; border-radius: 20px; margin: 6px 0;
+    letter-spacing: 0.5px;
+  }
+  .level-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .hero { padding: 50px 20px 30px; }
+    .levels { padding: 20px 20px 60px; }
+    .levels::before { left: 58px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="back-btn">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Назад
+  </a>
+  <img src="dowLogo.png" class="nav-logo" alt="Logo">
+  <span class="nav-name">Döwletli Nazar</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-icon">🧮</div>
+  <h1>Ментальная арифметика</h1>
+  <p>Развитие мозга через технику абакус — с 4 до 14 лет</p>
+</div>
+
+<div class="levels">
+  <div class="level-row">
+    <div class="level-dot">1</div>
+    <div class="level-body">
+      <div class="level-name">Базовый — Абакус</div>
+      <div class="level-age">От 4 лет</div>
+      <div class="level-desc">Знакомство с абакусом, счёт до 100, сложение и вычитание однозначных чисел.</div>
+    </div>
+  </div>
+
+  <div class="level-row">
+    <div class="level-dot">2</div>
+    <div class="level-body">
+      <div class="level-name">Элементарный</div>
+      <div class="level-age">5–7 лет</div>
+      <div class="level-desc">Двузначные числа, скорость вычислений и первые упражнения для памяти.</div>
+    </div>
+  </div>
+
+  <div class="level-row">
+    <div class="level-dot">3</div>
+    <div class="level-body">
+      <div class="level-name">Начальная ментальность</div>
+      <div class="level-age">6–9 лет</div>
+      <div class="level-desc">Переход к воображаемому абакусу. Счёт в уме без физического инструмента.</div>
+    </div>
+  </div>
+
+  <div class="level-row">
+    <div class="level-dot">4</div>
+    <div class="level-body">
+      <div class="level-name">Средний</div>
+      <div class="level-age">7–10 лет</div>
+      <div class="level-desc">Трёхзначные числа, умножение и развитие фотографической памяти.</div>
+    </div>
+  </div>
+
+  <div class="level-row">
+    <div class="level-dot">5</div>
+    <div class="level-body">
+      <div class="level-name">Продвинутый</div>
+      <div class="level-age">8–12 лет</div>
+      <div class="level-desc">Многозначные числа, деление и скоростной ментальный счёт.</div>
+    </div>
+  </div>
+
+  <div class="level-row">
+    <div class="level-dot">6</div>
+    <div class="level-body">
+      <div class="level-name">Экспертный</div>
+      <div class="level-age">10–14 лет</div>
+      <div class="level-desc">Сложные вычисления, соревновательный уровень и подготовка к олимпиадам.</div>
+    </div>
+  </div>
+
+  <div class="level-row">
+    <div class="level-dot">★</div>
+    <div class="level-body">
+      <div class="level-name">Мастер абакуса</div>
+      <div class="level-age">12–14 лет</div>
+      <div class="level-desc">Максимальная скорость и точность. Международный сертификат.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

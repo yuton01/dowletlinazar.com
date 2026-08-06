@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Английский язык — Döwletli Nazar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --blue: #1E8FE1; --blue-dark: #1570b8; --blue-light: #e8f4fd; --text: #1a1a2e; --muted: #6b7280; }
+  body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text); overflow-x: hidden; }
+
+  nav {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 60px; border-bottom: 1px solid #f0f0f0;
+    position: sticky; top: 0; background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px); z-index: 100;
+  }
+  .back-btn {
+    display: flex; align-items: center; gap: 6px;
+    text-decoration: none; color: var(--blue); font-weight: 700; font-size: 14px;
+    padding: 8px 16px; border: 2px solid var(--blue); border-radius: 50px;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { background: var(--blue); color: white; }
+  .nav-logo { width: 38px; height: 38px; object-fit: contain; }
+  .nav-name { font-weight: 800; color: var(--blue); font-size: 16px; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 70px 40px 50px;
+    overflow: hidden;
+  }
+  .hero-flag {
+    font-size: 72px;
+    animation: bounceIn 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+  @keyframes bounceIn {
+    from { transform: scale(0) rotate(-20deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4vw, 46px);
+    font-weight: 800;
+    color: var(--blue);
+    animation: slideRight 0.7s ease 0.2s both;
+  }
+  .hero p {
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 12px;
+    animation: slideRight 0.7s ease 0.35s both;
+  }
+  @keyframes slideRight {
+    from { transform: translateX(-40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  /* LEVELS */
+  .levels {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 40px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .level-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 32px;
+    border: 2px solid #e8f0f8;
+    border-radius: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: slideInLeft 0.5s ease forwards;
+  }
+
+  .level-card:nth-child(1) { animation-delay: 0.1s; }
+  .level-card:nth-child(2) { animation-delay: 0.2s; }
+  .level-card:nth-child(3) { animation-delay: 0.3s; }
+  .level-card:nth-child(4) { animation-delay: 0.4s; }
+  .level-card:nth-child(5) { animation-delay: 0.5s; }
+  .level-card:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes slideInLeft {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .level-card:hover {
+    transform: translateX(6px);
+    box-shadow: 0 12px 40px rgba(30,143,225,0.12);
+    border-color: var(--blue);
+  }
+
+  .level-badge {
+    min-width: 64px; height: 64px;
+    border-radius: 14px;
+    background: var(--blue-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: var(--blue);
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .level-info { flex: 1; }
+  .level-name { font-size: 20px; font-weight: 800; }
+  .level-desc { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+  .level-arrow {
+    color: var(--blue);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .level-card:hover .level-arrow { opacity: 1; transform: translateX(4px); }
+
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .hero { padding: 50px 20px 30px; }
+    .levels { padding: 20px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="back-btn">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Назад
+  </a>
+  <img src="dowLogo.png" class="nav-logo" alt="Logo">
+  <span class="nav-name">Döwletli Nazar</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-flag">🇬🇧</div>
+  <h1>Английский язык</h1>
+  <p>Выберите ваш уровень и начните обучение</p>
+</div>
+
+<div class="levels">
+  <div class="level-card">
+    <div class="level-badge">A1<br>Beg</div>
+    <div class="level-info">
+      <div class="level-name">Beginner</div>
+      <div class="level-desc">Для тех, кто начинает с нуля. Алфавит, базовые фразы и приветствия.</div>
+    </div>
+    <svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+
+  <div class="level-card">
+    <div class="level-badge">A1+<br>Elem</div>
+    <div class="level-info">
+      <div class="level-name">Elementary</div>
+      <div class="level-desc">Базовая грамматика, простые диалоги и повседневные темы.</div>
+    </div>
+    <svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+
+  <div class="level-card">
+    <div class="level-badge">A2<br>Pre</div>
+    <div class="level-info">
+      <div class="level-name">Pre-Intermediate</div>
+      <div class="level-desc">Расширение словаря, времена глаголов и связная речь.</div>
+    </div>
+    <svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+
+  <div class="level-card">
+    <div class="level-badge">B1<br>Int</div>
+    <div class="level-info">
+      <div class="level-name">Intermediate</div>
+      <div class="level-desc">Свободное общение, сложные грамматические конструкции.</div>
+    </div>
+    <svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+
+  <div class="level-card">
+    <div class="level-badge">B2<br>UI</div>
+    <div class="level-info">
+      <div class="level-name">Upper-Intermediate</div>
+      <div class="level-desc">Деловой английский, эссе и продвинутая лексика.</div>
+    </div>
+    <svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+
+  <div class="level-card">
+    <div class="level-badge">C1<br>Adv</div>
+    <div class="level-info">
+      <div class="level-name">Advanced</div>
+      <div class="level-desc">Академический уровень, подготовка к IELTS/TOEFL и сложные тексты.</div>
+    </div>
+    <svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+</div>
+
+</body>
+</html>
