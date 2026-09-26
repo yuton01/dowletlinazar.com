@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iňlis dili — Döwletli Nazar</title>
+<link rel="icon" type="image/png" href="dowLogo.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0e1a24;--paper:#f4efe6;--sand:#e8dcc8;--gold:#c9a24a;--gold-soft:#f0e2bd;--teal:#1b6b63;--teal-deep:#0f3f3b;--muted:#6a6156;--card:#fffdf8;--ease-out:cubic-bezier(0.22,1,0.36,1);--ease-soft:cubic-bezier(0.33,1,0.68,1)}
+body{font-family:Manrope,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 48px;position:sticky;top:0;z-index:100;background:rgba(244,239,230,.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(14,26,36,.06);animation:softFade .8s var(--ease-soft) both}
+@keyframes softFade{from{opacity:0}to{opacity:1}}
+@keyframes softRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.nav-left,.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.back-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--teal-deep);font-weight:800;font-size:13px;padding:8px 14px;border:1.5px solid var(--teal);border-radius:999px;transition:background .35s var(--ease-soft),color .35s var(--ease-soft)}
+.back-btn:hover{background:var(--teal);color:#fff}
+.nav-logo{width:38px;height:38px;object-fit:contain}
+.nav-name{font-family:Fraunces,serif;font-weight:700;color:var(--teal-deep);font-size:16px}
+.nav-title .main{font-family:Fraunces,serif;font-size:17px;font-weight:700;color:var(--teal-deep)}
+.nav-title .sub{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.lang-switch{display:flex;align-items:center;background:#fff;padding:4px;border-radius:999px;border:1px solid rgba(14,26,36,.08)}
+.lang-btn{background:none;border:none;font-weight:800;font-size:12px;color:var(--muted);cursor:pointer;padding:6px 11px;border-radius:999px;font-family:inherit;transition:background .35s var(--ease-soft),color .35s var(--ease-soft)}
+.lang-btn.active{background:var(--teal);color:#fff}
+.lang-divider{display:none}
+.hero{text-align:center;padding:64px 24px 36px;animation:softRise 1s var(--ease-out) both}
+.hero h1,.page-title{font-family:Fraunces,serif;font-size:clamp(28px,5vw,48px);color:var(--teal-deep)}
+.hero p{margin-top:10px;color:var(--muted);font-size:16px}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity 1.1s var(--ease-out),transform 1.1s var(--ease-out);will-change:opacity,transform}
+.reveal.is-visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.06s}.reveal-delay-2{transition-delay:.12s}.reveal-delay-3{transition-delay:.18s}.reveal-delay-4{transition-delay:.24s}.reveal-delay-5{transition-delay:.3s}.reveal-delay-6{transition-delay:.36s}
+@media(max-width:600px){nav{padding:12px 14px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+
+.hero-flag{font-size:64px;display:inline-block;margin-bottom:8px}
+.levels{max-width:880px;margin:0 auto;padding:10px 24px 80px;display:flex;flex-direction:column;gap:14px}
+.level-card{display:flex;align-items:center;gap:20px;padding:22px 24px;background:var(--card);border-radius:20px;border:1px solid rgba(14,26,36,.05);box-shadow:0 8px 22px rgba(14,26,36,.03);transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out)}
+.level-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(15,63,59,.1)}
+.level-badge{min-width:64px;height:64px;border-radius:16px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#6b4e12;text-align:center;line-height:1.2}
+.level-name{font-family:Fraunces,serif;font-size:20px}
+.level-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.level-arrow{color:var(--teal);opacity:0;transition:opacity .35s var(--ease-soft),transform .35s var(--ease-soft)}
+.level-card:hover .level-arrow{opacity:1;transform:translateX(3px)}
+</style></head><body>
+
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="back-btn">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span data-key="back">Yza</span>
+    </a>
+    <img src="dowLogo.png" class="nav-logo" alt="Logo">
+    <span class="nav-name">Döwletli Nazar</span>
+  </div>
+  <div class="lang-switch">
+    <button class="lang-btn active" data-lang="tk">TK</button>
+    <span class="lang-divider">|</span>
+    <button class="lang-btn" data-lang="ru">RU</button>
+  </div>
+</nav>
+
+<div class="hero"><div class="hero-flag">🇬🇧</div><h1 data-key="heroTitle">Iňlis dili</h1><p data-key="heroDesc">Derejäňizi saýlaň we okuwa başlaň</p></div>
+<div class="levels">
+<div class="level-card reveal reveal-delay-1"><div class="level-badge">A1<br>Beg</div><div class="level-info"><div class="level-name">Beginner</div><div class="level-desc" data-key="l1Desc">Noldan başlaýanlar üçin. Elipbiý, esasy jümleler we salamlaşyklar.</div></div><svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+<div class="level-card reveal reveal-delay-2"><div class="level-badge">A1+<br>Elem</div><div class="level-info"><div class="level-name">Elementary</div><div class="level-desc" data-key="l2Desc">Esasy grammatika, ýönekeý dialoglar we gündelik temalar.</div></div><svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+<div class="level-card reveal reveal-delay-3"><div class="level-badge">A2<br>Pre</div><div class="level-info"><div class="level-name">Pre-Intermediate</div><div class="level-desc" data-key="l3Desc">Söz baýlygyny giňeltmek, işlik zamanlary we baglanyşykly gepleşik.</div></div><svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+<div class="level-card reveal reveal-delay-4"><div class="level-badge">B1<br>Int</div><div class="level-info"><div class="level-name">Intermediate</div><div class="level-desc" data-key="l4Desc">Erkin gepleşik, çylşyrymly grammatik gurluşlar.</div></div><svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+<div class="level-card reveal reveal-delay-5"><div class="level-badge">B2<br>UI</div><div class="level-info"><div class="level-name">Upper-Intermediate</div><div class="level-desc" data-key="l5Desc">Işewürlik iňlis dili, oçerk ýazmak we ösen leksika.</div></div><svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+<div class="level-card reveal reveal-delay-6"><div class="level-badge">C1<br>Adv</div><div class="level-info"><div class="level-name">Advanced</div><div class="level-desc" data-key="l6Desc">Akademiki derejе, IELTS/TOEFL synaglaryna taýýarlyk we çylşyrymly tekstler.</div></div><svg class="level-arrow" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+</div>
+
+<script>
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  const translations = {
+  tk:{back:"Yza",heroTitle:"Iňlis dili",heroDesc:"Derejäňizi saýlaň we okuwa başlaň",l1Desc:"Noldan başlaýanlar üçin. Elipbiý, esasy jümleler we salamlaşyklar.",l2Desc:"Esasy grammatika, ýönekeý dialoglar we gündelik temalar.",l3Desc:"Söz baýlygyny giňeltmek, işlik zamanlary we baglanyşykly gepleşik.",l4Desc:"Erkin gepleşik, çylşyrymly grammatik gurluşlar.",l5Desc:"Işewürlik iňlis dili, oçerk ýazmak we ösen leksika.",l6Desc:"Akademiki derejе, IELTS/TOEFL synaglaryna taýýarlyk we çylşyrymly tekstler."},
+  ru:{back:"Назад",heroTitle:"Английский язык",heroDesc:"Выберите ваш уровень и начните обучение",l1Desc:"Для тех, кто начинает с нуля. Алфавит, базовые фразы и приветствия.",l2Desc:"Базовая грамматика, простые диалоги и повседневные темы.",l3Desc:"Расширение словаря, времена глаголов и связная речь.",l4Desc:"Свободное общение, сложные грамматические конструкции.",l5Desc:"Деловой английский, эссе и продвинутая лексика.",l6Desc:"Академический уровень, подготовка к IELTS/TOEFL и сложные тексты."}
+};
+  const langBtns = document.querySelectorAll('.lang-btn');
+  langBtns.forEach(btn => btn.addEventListener('click', () => {
+    langBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    changeLanguage(btn.getAttribute('data-lang'));
+  }));
+  function changeLanguage(lang) {
+    document.querySelectorAll('[data-key]').forEach(el => {
+      const key = el.getAttribute('data-key');
+      if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+    });
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      const phKey = searchInput.getAttribute('data-placeholder');
+      if (phKey && translations[lang][phKey]) searchInput.placeholder = translations[lang][phKey];
+    }
+    document.documentElement.lang = lang;
+  }
+  changeLanguage('tk');
+</script>
+
+</body></html>

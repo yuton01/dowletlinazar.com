@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Synag netijeleri</title>
+<link rel="icon" type="image/png" href="dowLogo.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0e1a24;--paper:#f4efe6;--sand:#e8dcc8;--gold:#c9a24a;--gold-soft:#f0e2bd;--teal:#1b6b63;--teal-deep:#0f3f3b;--muted:#6a6156;--card:#fffdf8;--ease-out:cubic-bezier(0.22,1,0.36,1);--ease-soft:cubic-bezier(0.33,1,0.68,1)}
+body{font-family:Manrope,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 48px;position:sticky;top:0;z-index:100;background:rgba(244,239,230,.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(14,26,36,.06);animation:softFade .8s var(--ease-soft) both}
+@keyframes softFade{from{opacity:0}to{opacity:1}}
+@keyframes softRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.nav-left,.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.back-btn{display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--teal-deep);font-weight:800;font-size:13px;padding:8px 14px;border:1.5px solid var(--teal);border-radius:999px;transition:background .35s var(--ease-soft),color .35s var(--ease-soft)}
+.back-btn:hover{background:var(--teal);color:#fff}
+.nav-logo{width:38px;height:38px;object-fit:contain}
+.nav-name{font-family:Fraunces,serif;font-weight:700;color:var(--teal-deep);font-size:16px}
+.nav-title .main{font-family:Fraunces,serif;font-size:17px;font-weight:700;color:var(--teal-deep)}
+.nav-title .sub{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.lang-switch{display:flex;align-items:center;background:#fff;padding:4px;border-radius:999px;border:1px solid rgba(14,26,36,.08)}
+.lang-btn{background:none;border:none;font-weight:800;font-size:12px;color:var(--muted);cursor:pointer;padding:6px 11px;border-radius:999px;font-family:inherit;transition:background .35s var(--ease-soft),color .35s var(--ease-soft)}
+.lang-btn.active{background:var(--teal);color:#fff}
+.lang-divider{display:none}
+.hero{text-align:center;padding:64px 24px 36px;animation:softRise 1s var(--ease-out) both;position:relative;overflow:hidden}
+.hero h1,.page-title{font-family:Fraunces,serif;font-size:clamp(28px,5vw,48px);color:var(--teal-deep)}
+.hero p{margin-top:10px;color:var(--muted);font-size:16px}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity 1.1s var(--ease-out),transform 1.1s var(--ease-out);will-change:opacity,transform}
+.reveal.is-visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.06s}.reveal-delay-2{transition-delay:.12s}.reveal-delay-3{transition-delay:.18s}.reveal-delay-4{transition-delay:.24s}.reveal-delay-5{transition-delay:.3s}
+@media(max-width:600px){nav{padding:12px 14px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+
+.container{max-width:800px;margin:40px auto;padding:0 20px}
+h2{font-family:Fraunces,serif;color:var(--teal-deep);margin-bottom:16px}
+#searchInput{width:100%;padding:14px 16px;font-family:inherit;font-size:16px;border:1.5px solid rgba(14,26,36,.1);border-radius:14px;outline:none;background:#fff;margin-bottom:20px}
+#searchInput:focus{border-color:var(--teal)}
+.table-wrapper{background:var(--card);border-radius:18px;overflow:hidden;border:1px solid rgba(14,26,36,.05)}
+table{width:100%;border-collapse:collapse}
+th{background:var(--sand);color:var(--teal-deep);padding:12px 14px;font-size:13px;font-weight:800;text-align:left}
+td{padding:12px 14px;border-bottom:1px solid rgba(14,26,36,.06);font-size:15px}
+tr:hover td{background:#faf6ee}
+</style></head><body>
+<div class="container">
+  <h2 class="reveal">Synag netijeleri</h2>
+  <input type="text" id="searchInput" class="reveal reveal-delay-1" placeholder="Okuwçynyň ady boýunça gözleg...">
+  <div class="table-wrapper reveal reveal-delay-2">
+    <table>
+      <thead><tr><th>Okuwçynyň ady</th><th>Synag 1</th><th>Synag 2</th><th>Synag 3</th></tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+  const students = [
+    { name: "Алексей Иванов", exam1: 85, exam2: 90, exam3: 88 },
+    { name: "Мария Смирнова", exam1: 92, exam2: 95, exam3: 98 },
+    { name: "Дмитрий Петров", exam1: 78, exam2: 82, exam3: 80 },
+    { name: "Елена Соколова", exam1: 88, exam2: 85, exam3: 91 },
+    { name: "Максим Кузнецов", exam1: 65, exam2: 70, exam3: 72 },
+    { name: "Ольга Морозова", exam1: 95, exam2: 91, exam3: 94 },
+    { name: "Артем Васильев", exam1: 82, exam2: 79, exam3: 85 },
+    { name: "Анна Новикова", exam1: 90, exam2: 88, exam3: 92 },
+    { name: "Игорь Федоров", exam1: 73, exam2: 75, exam3: 70 },
+    { name: "Татьяна Волкова", exam1: 89, exam2: 93, exam3: 87 }
+  ];
+  const searchInput = document.getElementById('searchInput');
+  const tableBody = document.getElementById('tableBody');
+  function renderTable(data) {
+    tableBody.innerHTML = data.map(s => `<tr><td>${s.name}</td><td>${s.exam1}</td><td>${s.exam2}</td><td>${s.exam3}</td></tr>`).join('');
+  }
+  searchInput.addEventListener('input', (e) => {
+    const value = e.target.value.toLowerCase();
+    renderTable(students.filter(s => s.name.toLowerCase().includes(value)));
+  });
+  renderTable(students);
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+</body></html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="qUojF3Am7838DEFm-3RfezVmjZplXpbqyVTN0l5NNm0" />
+<title>Döwletli Nazar Bilim Merkezi</title>
+<link rel="icon" type="image/png" href="dowLogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0e1a24;
+    --paper: #f4efe6;
+    --sand: #e8dcc8;
+    --gold: #c9a24a;
+    --gold-soft: #f0e2bd;
+    --teal: #1b6b63;
+    --teal-deep: #0f3f3b;
+    --muted: #6a6156;
+    --card: #fffdf8;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    z-index: 0;
+  }
+  nav, section, footer, .stats { position: relative; z-index: 1; }
+
+  /* Subtle page load */
+  @keyframes softFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes softRise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(244,239,230,0.82);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(14,26,36,0.06);
+    animation: softFade 0.9s var(--ease-soft) both;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-logo { width: 46px; height: 46px; object-fit: contain; }
+  .nav-title .main { font-family: Fraunces, serif; font-size: 18px; font-weight: 700; color: var(--teal-deep); }
+  .nav-title .sub { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+
+  .lang-switch {
+    display: flex; align-items: center; gap: 2px;
+    background: #fff; padding: 4px; border-radius: 999px;
+    border: 1px solid rgba(14,26,36,0.08);
+  }
+  .lang-btn {
+    background: none; border: none; font-weight: 800; font-size: 12px;
+    color: var(--muted); cursor: pointer; padding: 6px 11px; border-radius: 999px;
+    font-family: inherit; transition: background 0.35s var(--ease-soft), color 0.35s var(--ease-soft);
+  }
+  .lang-btn.active { background: var(--teal); color: #fff; }
+  .lang-divider { display: none; }
+
+  .hero {
+    padding: 72px 48px 40px;
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 40px;
+    align-items: center;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .hero-copy { animation: softRise 1.1s var(--ease-out) 0.1s both; }
+  .eyebrow {
+    display: inline-flex; gap: 8px; align-items: center;
+    font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 16px;
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--gold); }
+  .hero h1 {
+    font-family: Fraunces, serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.98;
+    letter-spacing: -1.5px;
+    color: var(--teal-deep);
+  }
+  .hero h1 span { color: var(--gold); font-style: italic; }
+  .hero p { margin-top: 18px; font-size: 17px; color: var(--muted); max-width: 460px; line-height: 1.65; }
+  .hero-visual {
+    display: flex; justify-content: center;
+    animation: softRise 1.2s var(--ease-out) 0.2s both;
+  }
+  .hero-logo {
+    width: min(280px, 70vw); height: auto; object-fit: contain;
+    filter: drop-shadow(0 20px 36px rgba(15,63,59,.14));
+  }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 16px; max-width: 900px; margin: 20px auto 10px; padding: 0 24px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid rgba(14,26,36,0.05);
+    border-radius: 22px;
+    padding: 22px 16px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(14,26,36,.03);
+  }
+  .stat-num { font-family: Fraunces, serif; font-size: 42px; color: var(--teal); line-height: 1; }
+  .stat-label { margin-top: 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
+
+  .courses-section, .features-section, .reviews-section { padding: 70px 40px; max-width: 1180px; margin: 0 auto; }
+  .section-title, .section-tag {
+    font-size: 12px; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase;
+    color: var(--gold); text-align: center; margin-bottom: 8px; display: block;
+  }
+  .section-heading, .features-section h2, .reviews-section h2, .contacts-section h2 {
+    font-family: Fraunces, serif; text-align: center; font-size: clamp(28px, 4vw, 44px);
+    color: var(--teal-deep); margin-bottom: 40px;
+  }
+  .cards-grid, .features-grid, .reviews-grid, .contacts-grid { display: grid; gap: 20px; }
+  .cards-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 28px 24px;
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; gap: 12px;
+    border: 1px solid rgba(14,26,36,0.05);
+    box-shadow: 0 10px 28px rgba(14,26,36,.04);
+    transition: transform 0.55s var(--ease-out), box-shadow 0.55s var(--ease-out);
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(15,63,59,.1); }
+  .card-icon { font-size: 38px; }
+  .card-lang {
+    align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+    background: var(--gold-soft); color: #6b4e12; padding: 4px 10px; border-radius: 999px;
+  }
+  .card h3 { font-family: Fraunces, serif; font-size: 22px; }
+  .card p { font-size: 14px; color: var(--muted); line-height: 1.6; flex: 1; }
+  .card-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal); color: #fff; font-weight: 700; font-size: 14px;
+    padding: 10px 18px; border-radius: 999px; width: fit-content;
+    transition: background 0.35s var(--ease-soft), transform 0.35s var(--ease-soft);
+  }
+  .card:hover .card-btn { background: var(--teal-deep); transform: translateX(3px); }
+
+  .features-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .feature-card, .review-card, .contact-item {
+    background: var(--card); border-radius: 22px; padding: 28px 22px;
+    border: 1px solid rgba(14,26,36,0.05);
+    transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+  }
+  .feature-card:hover, .review-card:hover, .contact-item:hover {
+    transform: translateY(-5px); box-shadow: 0 16px 36px rgba(14,26,36,.07);
+  }
+  .feature-icon, .contact-item .icon { font-size: 36px; margin-bottom: 10px; display: inline-block; transition: transform 0.5s var(--ease-out); }
+  .feature-card:hover .feature-icon, .contact-item:hover .icon { transform: scale(1.08); }
+  .feature-card h3 { font-family: Fraunces, serif; margin-bottom: 8px; }
+  .feature-card p { color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+
+  .reviews-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .review-card { text-align: left; display: flex; flex-direction: column; }
+  .stars { letter-spacing: 2px; margin-bottom: 12px; }
+  .review-text { color: #4d463c; font-size: 15px; line-height: 1.65; font-style: italic; flex: 1; }
+  .author-info { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--sand); display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+  .author-info strong { display: block; font-size: 14px; }
+  .author-info span { color: var(--muted); font-size: 12px; }
+
+  .contacts-section {
+    max-width: 1100px; margin: 20px auto 70px; padding: 48px 28px;
+    background: linear-gradient(160deg, var(--teal-deep), #163f4a);
+    color: #fff; border-radius: 32px; width: calc(100% - 48px);
+    box-shadow: 0 24px 50px rgba(15,63,59,.2);
+  }
+  .contacts-section h2 { color: #fff; }
+  .contacts-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .contact-item { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1); color: #fff; text-align: center; }
+  .contact-item strong { display: block; margin-bottom: 6px; font-size: 18px; }
+  .contact-item p { opacity: .88; }
+  .location-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 28px; padding: 14px 28px;
+    background: linear-gradient(135deg, var(--gold), #e0b84a);
+    color: var(--teal-deep); font-weight: 700; font-size: 15px;
+    border: none; border-radius: 50px; text-decoration: none;
+    box-shadow: 0 8px 24px rgba(201,162,74,.35);
+    transition: transform .25s var(--ease-out), box-shadow .25s;
+  }
+  .location-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(201,162,74,.45); }
+  .location-btn span { font-size: 18px; }
+
+  /* Very subtle scroll reveal — almost imperceptible */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 1.15s var(--ease-out),
+      transform 1.15s var(--ease-out);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+
+  footer { text-align: center; padding: 28px; color: var(--muted); font-size: 13px; border-top: 1px solid rgba(14,26,36,.06); }
+
+  @media (max-width: 800px) {
+    nav { padding: 10px 12px; gap: 8px; }
+    .nav-logo { width: 36px; height: 36px; }
+    .nav-title .main { font-size: 14px; }
+    .nav-title .sub { font-size: 9px; letter-spacing: 1px; }
+    .nav-exams { padding: 6px 10px; font-size: 11px; }
+    .lang-btn { padding: 5px 9px; font-size: 11px; }
+    .hero { grid-template-columns: 1fr; text-align: center; padding: 40px 20px 20px; }
+    .hero p { margin-inline: auto; }
+    .hero-visual { order: -1; }
+    .stats { grid-template-columns: 1fr; padding: 0 16px; }
+    .courses-section, .features-section, .reviews-section { padding: 48px 16px; }
+    .contacts-section { width: calc(100% - 24px); }
+  }
+
+  /* Compact exams link in nav */
+  .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .nav-exams {
+    display: inline-flex; align-items: center; gap: 5px;
+    text-decoration: none;
+    background: var(--gold);
+    color: #2b2108;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+    line-height: 1;
+    transition: background 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
+  }
+  .nav-exams:hover { background: #b8923a; transform: translateY(-1px); }
+
+  /* Logo intro splash */
+  #splash {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--paper);
+    transition: opacity 0.85s var(--ease-soft), visibility 0.85s;
+  }
+  #splash.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  #splash .splash-logo {
+    width: min(160px, 38vw);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 16px 32px rgba(15,63,59,.18));
+    animation: splashIn 1s var(--ease-out) both;
+  }
+  #splash .splash-title {
+    margin-top: 18px;
+    font-family: Fraunces, serif;
+    font-size: clamp(20px, 5vw, 28px);
+    font-weight: 700;
+    color: var(--teal-deep);
+    letter-spacing: -0.3px;
+    animation: splashIn 1s var(--ease-out) 0.15s both;
+  }
+  #splash .splash-sub {
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    animation: splashIn 1s var(--ease-out) 0.25s both;
+  }
+  @keyframes splashIn {
+    from { opacity: 0; transform: scale(0.88) translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  body.splash-lock { overflow: hidden; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="splash-lock">
+<!-- Logo intro -->
+<div id="splash">
+  <img src="dowLogo.png" class="splash-logo" alt="Logo">
+  <div class="splash-title">Döwletli Nazar</div>
+  <div class="splash-sub">Bilim Merkezi</div>
+</div>
+
+<nav>
+  <div class="nav-brand">
+    <img src="dowLogo.png" class="nav-logo" alt="Logo">
+    <div class="nav-title">
+      <span class="main">Döwletli Nazar</span>
+      <span class="sub">Bilim Merkezi</span>
+    </div>
+  </div>
+  <div class="nav-actions">
+    <a href="exams.html" class="nav-exams" id="navExamsBtn" title="Synag netijeleri">📊 <span data-key="navExams">Synag</span></a>
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="tk">TK</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">Bilim · Dil · Geljek</div>
+    <h1>Döwletli Nazar<br><span>Bilim Merkezi</span></h1>
+    <p data-key="heroSub">Çagalar we uly adamlar üçin hünär okuwlary. Diller, mental arifmetika we beýlekiler.</p>
+  </div>
+  <div class="hero-visual">
+    <img src="dowLogo.png" class="hero-logo" alt="Döwletli Nazar Logo">
+  </div>
+</section>
+
+<div class="stats reveal">
+  <div class="stat"><div class="stat-num" data-target="15">0</div><div class="stat-label" data-key="statTeachers">+ Mugallym</div></div>
+  <div class="stat"><div class="stat-num" data-target="500">0</div><div class="stat-label" data-key="statStudents">+ Okuwçy</div></div>
+  <div class="stat"><div class="stat-num" data-target="5">0</div><div class="stat-label" data-key="statExperience">Ýyl tejribe</div></div>
+</div>
+
+<section class="courses-section">
+  <p class="section-title reveal" data-key="coursesTag">BIZIŇ OKUWUMYZ</p>
+  <h2 class="section-heading reveal" data-key="coursesTitle">Uugur saýlaň</h2>
+  <div class="cards-grid">
+    <a class="card reveal reveal-delay-1" href="english.html">
+      <span class="card-icon">🇬🇧</span><span class="card-lang">EN</span>
+      <h3 data-key="c1Title">Iňlis dili</h3>
+      <p data-key="c1Desc">Beginner-den Advanced çenli. Gepleşik dili, grammatika we synaglara taýýarlyk.</p>
+      <span class="card-btn"><span data-key="more">Giňişleýin</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a class="card reveal reveal-delay-2" href="russian.html">
+      <span class="card-icon">🇷🇺</span><span class="card-lang">RU</span>
+      <h3 data-key="c2Title">Rus dili</h3>
+      <p data-key="c2Desc">Sowatly ýazmak, edebiýat we rus dili boýunça çuňlaşdyrylan taýýarlyk.</p>
+      <span class="card-btn"><span data-key="more">Giňişleýin</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a class="card reveal reveal-delay-3" href="chinese.html">
+      <span class="card-icon">🇨🇳</span><span class="card-lang">ZH</span>
+      <h3 data-key="c3Title">Hytaý dili</h3>
+      <p data-key="c3Desc">Ieroglifler, pinin we gepleşik hytaý dili. Iň köp isleg bildirilýän dilleriň biri.</p>
+      <span class="card-btn"><span data-key="more">Giňişleýin</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a class="card reveal reveal-delay-4" href="arithmetic.html">
+      <span class="card-icon">🧮</span><span class="card-lang">МА</span>
+      <h3 data-key="c4Title">Mental arifmetika</h3>
+      <p data-key="c4Desc">Abakus tehnikasy arkaly ýatkeşligi we hasaplama tizligini ösdürmek. 4 ýaşdan uly çagalar üçin.</p>
+      <span class="card-btn"><span data-key="more">Giňişleýin</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<section class="features-section" id="features">
+  <span class="section-tag reveal" data-key="featuresTag">BIZIŇ ARTYKMAÇLYKLARYMYZ</span>
+  <h2 class="reveal" data-key="featuresTitle">Näme üçin bizi saýlaýarlar</h2>
+  <div class="features-grid">
+    <div class="feature-card reveal reveal-delay-1"><div class="feature-icon">👥</div><h3 data-key="f1Title">Kiçi toparlar</h3><p data-key="f1Desc">Mugallym her bir okuwça maksimum üns berip bilmegi üçin 8 adama çenli toparlary düzýäris.</p></div>
+    <div class="feature-card reveal reveal-delay-2"><div class="feature-icon">🎓</div><h3 data-key="f2Title">Tejribeli mugallymlar</h3><p data-key="f2Desc">Biziň mugallymlarymyzyň halkara sertifikatlary we azyndan 5 ýyllyk okatmak tejribesi bar.</p></div>
+    <div class="feature-card reveal reveal-delay-3"><div class="feature-icon">📜</div><h3 data-key="f3Title">Gutarýandygy hakynda sertifikat</h3><p data-key="f3Desc">Her derejäni tamamlanyňyzdan soň, alnan bilimleri tassyklaýan resmi resminama berýäris.</p></div>
+    <div class="feature-card reveal reveal-delay-4"><div class="feature-icon">⏰</div><h3 data-key="f4Title">Amatly tertip</h3><p data-key="f4Desc">Ertirki, öýläni we agşamky wagtlarda çeýe sapak tertibi — mekdep ýa-da iş bilen utgaşdyrmak aňsat.</p></div>
+  </div>
+</section>
+
+<section class="reviews-section" id="reviews">
+  <span class="section-tag reveal" data-key="reviewsTag">PIKIRLER</span>
+  <h2 class="reveal" data-key="reviewsTitle">Okuwçylarymyzyň we ene-atalaryň aýdanlary</h2>
+  <div class="reviews-grid">
+    <div class="review-card reveal reveal-delay-1"><div class="stars">★★★★★</div><p class="review-text" data-key="r1Text">«Oglum eýýäm alty aý bäri mental arifmetika gatnaýar. Netijeler ajaýyp — kellemde mendän çalt hasaplap başlady! Mugallymlar çagalara çemeleşip bilýärler.»</p><div class="author-info"><div class="avatar">👩</div><div><strong>Magtymguliýewa Gülnar</strong><span data-key="r1Sub">Okuwçynyň ejesi (8 ýaş)</span></div></div></div>
+    <div class="review-card reveal reveal-delay-2"><div class="stars">★★★★★</div><p class="review-text" data-key="r2Text">«Iňlis dili kursyna gatnaýaryn. 3 aýyň içinde geşleşmek gorkusy bütinleý aýryldy. Işime görä örän amatly tertip düzüp berdiler!»</p><div class="author-info"><div class="avatar">👨</div><div><strong>Annaýew Serdar</strong><span data-key="r2Sub">English Upper-Intermediate kursynyň okuwçysy</span></div></div></div>
+    <div class="review-card reveal reveal-delay-3"><div class="stars">★★★★★</div><p class="review-text" data-key="r3Text">«Gyzym hytaý dilini noldan öwrenýär. Çemeleşmelerine örän hoşallyk bildirýäris: oýun tejribesi köp, ieroglifler aňsat ýatda galýar. Sag boluň Döwletli Nazar!»</p><div class="author-info"><div class="avatar">👩</div><div><strong>Baýramowa Maýa</strong><span data-key="r3Sub">Okuwçynyň ejesi (11 ýaş)</span></div></div></div>
+  </div>
+</section>
+
+<section class="contacts-section reveal" id="contacts">
+  <h2 data-key="contactsTitle">Habarlaşmak we ýerleşýän ýerimiz</h2>
+  <div class="contacts-grid">
+    <div class="contact-item"><div class="icon">📍</div><div><strong data-key="addressLabel">Salgy:</strong><p data-key="addressValue">Änew ş., Azatlyk köç., 38-nji jaý</p></div></div>
+    <div class="contact-item"><div class="icon">📞</div><div><strong data-key="phoneLabel">Telefon:</strong><p>+993 63 82-38-85</p><p>+993 71 25-59-61</p></div></div>
+    <div class="contact-item"><div class="icon">⏰</div><div><strong data-key="scheduleLabel">Iş wagty:</strong><p data-key="scheduleValue">Duş–Şen: 09:00 – 19:00</p></div></div>
+  </div>
+  <div style="text-align:center">
+    <a class="location-btn" href="https://www.google.com/maps/place/VFQW%2B8G+%C3%84new" target="_blank" rel="noopener">
+      <span>📍</span> Kartada görmek
+    </a>
+  </div>
+</section>
+
+<footer>© 2024 Döwletli Nazar Bilim Merkezi · Nazar</footer>
+
+<script>
+  /* Subtle scroll reveal via IntersectionObserver */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* Gentle count-up */
+  const counters = document.querySelectorAll('[data-target]');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = +el.dataset.target;
+        const duration = 1800;
+        const start = performance.now();
+        function tick(now) {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.floor(eased * target);
+          if (t < 1) requestAnimationFrame(tick);
+          else el.textContent = target;
+        }
+        requestAnimationFrame(tick);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(c => counterObserver.observe(c));
+
+  const translations = {
+    tk: {
+      heroSub: "Çagalar we uly adamlar üçin hünär okuwlary. Diller, mental arifmetika we beýlekiler.",
+      statTeachers: "+ Mugallym", statStudents: "+ Okuwçy", statExperience: "Ýyl tejribe",
+      coursesTag: "BIZIŇ OKUWUMYZ", coursesTitle: "Uugur saýlaň", more: "Giňişleýin",
+      c1Title: "Iňlis dili", c1Desc: "Beginner-den Advanced çenli. Gepleşik dili, grammatika we synaglara taýýarlyk.",
+      c2Title: "Rus dili", c2Desc: "Sowatly ýazmak, edebiýat we rus dili boýunça çuňlaşdyrylan taýýarlyk.",
+      c3Title: "Hytaý dili", c3Desc: "Ieroglifler, pinin we gepleşik hytaý dili. Iň köp isleg bildirilýän dilleriň biri.",
+      c4Title: "Mental arifmetika", c4Desc: "Abakus tehnikasy arkaly ýatkeşligi we hasaplama tizligini ösdürmek. 4 ýaşdan uly çagalar üçin.",
+      featuresTag: "BIZIŇ ARTYKMAÇLYKLARYMYZ", featuresTitle: "Näme üçin bizi saýlaýarlar",
+      f1Title: "Kiçi toparlar", f1Desc: "Mugallym her bir okuwça maksimum üns berip bilmegi üçin 8 adama çenli toparlary düzýäris.",
+      f2Title: "Tejribeli mugallymlar", f2Desc: "Biziň mugallymlarymyzyň halkara sertifikatlary we azyndan 5 ýyllyk okatmak tejribesi bar.",
+      f3Title: "Gutarýandygy hakynda sertifikat", f3Desc: "Her derejäni tamamlanyňyzdan soň, alnan bilimleri tassyklaýan resmi resminama berýäris.",
+      f4Title: "Amatly tertip", f4Desc: "Ertirki, öýläni we agşamky wagtlarda çeýe sapak tertibi — mekdep ýa-da iş bilen utgaşdyrmak aňsat.",
+      reviewsTag: "PIKIRLER", reviewsTitle: "Okuwçylarymyzyň we ene-atalaryň aýdanlary",
+      r1Text: "«Oglum eýýäm alty aý bäri mental arifmetika gatnaýar. Netijeler ajaýyp — kellemde mendän çalt hasaplap başlady! Mugallymlar çagalara çemeleşip bilýärler.»",
+      r1Sub: "Okuwçynyň ejesi (8 ýaş)",
+      r2Text: "«Iňlis dili kursyna gatnaýaryn. 3 aýyň içinde geşleşmek gorkusy bütinleý aýryldy. Işime görä örän amatly tertip düzüp berdiler!»",
+      r2Sub: "English Upper-Intermediate kursynyň okuwçysy",
+      r3Text: "«Gyzym hytaý dilini noldan öwrenýär. Çemeleşmelerine örän hoşallyk bildirýäris: oýun tejribesi köp, ieroglifler aňsat ýatda galýar. Sag boluň Döwletli Nazar!»",
+      r3Sub: "Okuwçynyň ejesi (11 ýaş)",
+      contactsTitle: "Habarlaşmak we ýerleşýän ýerimiz", addressLabel: "Salgy:", addressValue: "Änew ş., Azatlyk köç., 38-nji jaý",
+      phoneLabel: "Telefon:", scheduleLabel: "Iş wagty:", scheduleValue: "Duş–Şen: 09:00 – 19:00",
+      navExams: "Synag",
+    },
+    ru: {
+      heroSub: "Профессиональные курсы для детей и взрослых. Языки, ментальная арифметика и многое другое.",
+      statTeachers: "+ Учителей", statStudents: "+ Учеников", statExperience: "Лет опыта",
+      coursesTag: "НАШИ КУРСЫ", coursesTitle: "Выберите направление", more: "Подробнее",
+      c1Title: "Английский язык", c1Desc: "От Beginner до Advanced. Разговорная речь, грамматика и подготовка к экзаменам.",
+      c2Title: "Русский язык", c2Desc: "Грамотное письмо, литература и углублённая подготовка по русскому языку.",
+      c3Title: "Китайский язык", c3Desc: "Иероглифы, пиньинь и разговорный китайский. Один из самых востребованных языков.",
+      c4Title: "Ментальная арифметика", c4Desc: "Развитие памяти и скорости счёта с помощью техники абакус. Для детей от 4 лет.",
+      featuresTag: "НАШИ ПРЕИМУЩЕСТВА", featuresTitle: "Почему выбирают именно нас",
+      f1Title: "Маленькие группы", f1Desc: "Формируем группы до 8 человек, чтобы преподаватель мог уделить максимум внимания каждому ученику.",
+      f2Title: "Опытные преподаватели", f2Desc: "Наши педагоги имеют международные сертификаты и минимум 5 лет практики преподавания.",
+      f3Title: "Сертификат об окончании", f3Desc: "По завершении каждого уровня выдаём официальный документ, подтверждающий полученные знания.",
+      f4Title: "Удобное расписание", f4Desc: "Гибкий график занятий в утреннее, дневное и вечернее время — легко совмещать со школой или работой.",
+      reviewsTag: "ОТЗЫВЫ", reviewsTitle: "Что говорят наши ученики и родители",
+      r1Text: "«Сын ходит на ментальную арифметику уже полгода. Результаты потрясающие — стал считать в уме быстрее меня! Преподаватели умеют найти подход к детям.»",
+      r1Sub: "Мама ученика (8 лет)",
+      r2Text: "«Хожу на курс английского языка. За 3 месяца полностью ушел страх говорить. Очень удобное расписание — подстроили под мою работу!»",
+      r2Sub: "Студент курса English Upper-Intermediate",
+      r3Text: "«Дочка занимается китайским языком с нуля. Очень довольны подходом: много игровой практики, иероглифы запоминаются легко. Спасибо Döwletli Nazar!»",
+      r3Sub: "Мама ученицы (11 лет)",
+      contactsTitle: "Контакты и локация", addressLabel: "Адрес:", addressValue: "г. Анау, ул. Азатлык, д. 38",
+      phoneLabel: "Телефон:", scheduleLabel: "Режим работы:", scheduleValue: "Пн–Сб: 09:00 – 19:00",
+      navExams: "Баллы",
+    }
+  };
+  const langBtns = document.querySelectorAll('.lang-btn');
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedLang = btn.getAttribute('data-lang');
+      langBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      changeLanguage(selectedLang);
+    });
+  });
+  function changeLanguage(lang) {
+    document.querySelectorAll('[data-key]').forEach(el => {
+      const key = el.getAttribute('data-key');
+      if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+    });
+    document.documentElement.lang = lang;
+  }
+
+  /* Intro splash: logo appears then fades to main page */
+  (function() {
+    const splash = document.getElementById('splash');
+    if (!splash) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const showMs = reduce ? 200 : 1400;
+    const hideMs = reduce ? 100 : 850;
+    setTimeout(() => {
+      splash.classList.add('hide');
+      document.body.classList.remove('splash-lock');
+      setTimeout(() => splash.remove(), hideMs + 50);
+    }, showMs);
+  })();
+
+  changeLanguage('tk');
+</script>
+</body>
+</html>
